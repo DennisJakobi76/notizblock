@@ -2,11 +2,28 @@
 <html lang="de">
     <!-- prettier-ignore -->
     <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./style.css">
-	<script src="./script.js" defer></script>
-	<title>Notizblock</title>
-</head>
-    <body></body>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="./style.css">
+		<link rel="stylesheet" href="./styles/color.css">
+		<script src="./script.js" defer></script>
+		<title>Notizblock</title>
+	</head>
+    <body>
+        <header class="flex-row-center">
+            <h1>Notizblock</h1>
+        </header>
+        <main>
+            <label for="note-input">Neue Notiz erstellen</label>
+            <div>
+                <input
+                    id="note-input"
+                    type="text"
+                    placeholder="Notiz"
+                />
+                <button>Notiz anlegen</button>
+            </div>
+        </main>
+        <footer></footer>
+    </body>
 </html>

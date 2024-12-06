@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="./style.css">
 		<link rel="stylesheet" href="./styles/color.css">
 		<script src="./script.js" defer></script>
+		<script src="./scripts/template.js" defer></script>
 		<title>Notizblock</title>
 	</head>
     <body>
@@ -18,12 +19,14 @@
             <div>
                 <input
                     id="note-input"
+                    name="note-input"
                     type="text"
                     placeholder="Notiz"
                 />
                 <button
                     id="create-note-btn"
                     class="btn"
+                    onclick="createNote()"
                 >
                     Notiz anlegen
                 </button>
@@ -34,6 +37,9 @@
                     <div
                         id="current-note-container"
                         class="note-and-trash-div"
+                        ondrop="moveTo('note')"
+                        ondragleave="removeHighlight('current-note-container')"
+                        ondragover="allowDrop(event); highlight('current-note-container')"
                     ></div>
                 </div>
                 <div>
@@ -41,6 +47,9 @@
                     <div
                         id="trash-container"
                         class="note-and-trash-div"
+                        ondrop="moveTo('trash')"
+                        ondragleave="removeHighlight('trash-container')"
+                        ondragover="allowDrop(event); highlight('trash-container')"
                     ></div>
                 </div>
             </div>

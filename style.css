@@ -46,7 +46,9 @@ main {
 }
 
 #note-input {
+    font-family: "Caveat", cursive;
     background-color: var(--header-and-footer-bg);
+    color: var(--standart-text-color);
     border: 0;
     min-width: 300px;
     height: 32px;
@@ -100,8 +102,27 @@ h1 {
     filter: var(--img-drop-shadow);
     margin-top: 4px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.note-and-trash-div:hover {
+.drag-highlight {
+    filter: var(--img-drop-shadow-hover);
+}
+
+.note {
+    background-color: var(--header-and-footer-bg);
+    border: 0;
+    width: fit-content;
+    padding: 8px;
+    font-weight: 400;
+    filter: var(--img-drop-shadow);
+    margin-top: 4px;
+    border-radius: 10px;
+}
+
+.note:hover {
     filter: var(--img-drop-shadow-hover);
 }

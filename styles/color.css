@@ -1,8 +1,8 @@
 * {
-    --standart-text-color: rgba(254, 254, 254, 0.404);
+    --standart-text-color: rgba(254, 254, 254, 0.658);
     --header-and-footer-bg: rgba(8, 32, 41);
     --main-bg: rgba(5, 23, 30);
-    --img-drop-shadow: drop-shadow(0 3px 1.5px rgba(62, 75, 192, 0.9));
+    --img-drop-shadow: drop-shadow(0px 0px 4px rgba(62, 75, 192, 0.9));
     --img-drop-shadow-hover: drop-shadow(0px 0px 4px rgb(118, 128, 235));
     --dialog-bg: linear-gradient(to bottom right, rgb(67, 70, 221), rgb(4, 5, 75));
 }

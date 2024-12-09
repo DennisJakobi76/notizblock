@@ -8,9 +8,10 @@
 		<link rel="stylesheet" href="./styles/color.css">
 		<script src="./script.js" defer></script>
 		<script src="./scripts/template.js" defer></script>
+        <script src="./scripts/firebaseHelper.js" defer></script>
 		<title>Notizblock</title>
 	</head>
-    <body>
+    <body onload="onloadFunc()">
         <header class="flex-row-center">
             <h1>Notizblock</h1>
         </header>
@@ -52,6 +53,13 @@
                         ondragover="allowDrop(event); highlight('trash-container')"
                     ></div>
                 </div>
+                <button
+                    id="trash-btn"
+                    class="btn"
+                    onclick="eraseAllTrash()"
+                >
+                    Papierkorb leeren
+                </button>
             </div>
         </main>
         <footer></footer>

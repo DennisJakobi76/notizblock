@@ -3,22 +3,24 @@ let noteField = document.getElementById("current-note-container");
 let trashCan = document.getElementById("trash-container");
 let notes = [];
 let currentDraggedNote;
-let id = 0;
+let id;
 
 /**
  * This function gets the id of the note-element that has been started dragging and saves it into the
  * variable 'currentDraggedNote'
  * @param {number} id
  */
-function startDragging(id) {
-    currentDraggedNote = id;
+async function startDragging(noteId) {
+    currentDraggedNote = noteId;
 }
 
 /**
  * This function gets the user`s input and creates on note-element.
  * This element is given to the renderNote-function.
  */
-function createNote() {
+async function createNote() {
+    let dbEntryCount = await loadData("/notes");
+    id = dbEntryCount.length;
     let text;
     text = inputField.value;
     if (text.length > 0) {
@@ -26,8 +28,12 @@ function createNote() {
         note.id = id;
         note.category = "note";
         note.title = inputField.value;
-
+        let firebaseObject = {
+            category: note.category,
+            title: note.title,
+        };
         notes.push(note);
+        await addEditOneNote(note.id, firebaseObject);
         noteField.innerHTML += renderNote(note);
 
         id++;
@@ -36,7 +42,7 @@ function createNote() {
     }
 }
 
-function updateHTML() {
+async function updateHTML() {
     let theNotes = notes.filter((n) => n["category"] == "note");
     noteField.innerHTML = "";
 
@@ -54,9 +60,24 @@ function updateHTML() {
     }
 }
 
-function moveTo(category) {
-    notes[currentDraggedNote]["category"] = category;
-    updateHTML();
+function searchIndexInArray(array, noteId) {
+    let index = -1;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i]["id"] == noteId) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
+async function moveTo(category) {
+    let currentIndex = searchIndexInArray(notes, currentDraggedNote);
+    notes[currentIndex]["category"] = category;
+    let helperObject = { category: notes[currentIndex]["category"], title: notes[currentIndex]["title"] };
+    await addEditOneNote(currentIndex, helperObject);
+
+    await updateHTML();
 }
 
 function highlight(id) {
@@ -69,4 +90,27 @@ function removeHighlight(id) {
 
 function allowDrop(event) {
     event.preventDefault();
+}
+
+async function showCurrentNotes(array) {
+    notes = [];
+    for (let i = 0; i < array.length; i++) {
+        if (array[i]) {
+            notes.push({ id: i, category: array[i].category, title: array[i].title });
+        }
+    }
+    await updateHTML();
+}
+
+async function eraseAllTrash() {
+    let notesResponse = await loadData("/notes");
+
+    for (let i = 0; i < notesResponse.length; i++) {
+        if (notesResponse[i] && notesResponse[i].category === "trash") {
+            await deleteData(`/notes/${i}`);
+            let currentNote = notes.indexOf(notesResponse[i].title);
+            notes.remove(currentNote);
+        }
+    }
+    await updateHTML();
 }

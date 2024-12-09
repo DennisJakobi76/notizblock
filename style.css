@@ -126,3 +126,7 @@ h1 {
 .note:hover {
     filter: var(--img-drop-shadow-hover);
 }
+
+#trash-btn {
+    align-self: flex-end;
+}

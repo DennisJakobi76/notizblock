@@ -108,9 +108,27 @@ async function eraseAllTrash() {
     for (let i = 0; i < notesResponse.length; i++) {
         if (notesResponse[i] && notesResponse[i].category === "trash") {
             await deleteData(`/notes/${i}`);
-            let currentNote = notes.indexOf(notesResponse[i].title);
-            notes.remove(currentNote);
+            console.log(notesResponse[i].title);
+            console.log(notes);
+
+            let currentNote = findIndexOfObjectInArray(notes, "title", notesResponse[i].title);
+            console.log(currentNote);
+
+            notes.splice(currentNote, 1);
+            break;
         }
     }
-    await updateHTML();
+
+    updateHTML();
+}
+
+function findIndexOfObjectInArray(array, attribute, value) {
+    let index = -1;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i][attribute] === value) {
+            index = i;
+            break;
+        }
+    }
+    return index;
 }
